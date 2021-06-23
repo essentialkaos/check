@@ -20,4 +20,4 @@ For more details, visit the project page:
 
 and the API documentation:
 
-* pkg.re/essentialkaos/check.v1?docs
+* https://pkg.re/essentialkaos/check.v1?docs
