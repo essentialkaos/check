@@ -26,42 +26,31 @@ func Suite(suite interface{}) interface{} {
 // Public running interface.
 
 var (
-	oldFilterFlag  = flag.String("gocheck.f", "", "Regular expression selecting which tests and/or suites to run")
-	oldVerboseFlag = flag.Bool("gocheck.v", false, "Verbose mode")
-	oldStreamFlag  = flag.Bool("gocheck.vv", false, "Super verbose mode (disables output caching)")
-	oldBenchFlag   = flag.Bool("gocheck.b", false, "Run benchmarks")
-	oldBenchTime   = flag.Duration("gocheck.btime", 1*time.Second, "approximate run time for each benchmark")
-	oldListFlag    = flag.Bool("gocheck.list", false, "List the names of all tests that will be run")
-	oldWorkFlag    = flag.Bool("gocheck.work", false, "Display and do not remove the test working directory")
-
-	newFilterFlag  = flag.String("check.f", "", "Regular expression selecting which tests and/or suites to run")
-	newVerboseFlag = flag.Bool("check.v", false, "Verbose mode")
-	newStreamFlag  = flag.Bool("check.vv", false, "Super verbose mode (disables output caching)")
-	newBenchFlag   = flag.Bool("check.b", false, "Run benchmarks")
-	newBenchTime   = flag.Duration("check.btime", 1*time.Second, "approximate run time for each benchmark")
-	newBenchMem    = flag.Bool("check.bmem", false, "Report memory benchmarks")
-	newListFlag    = flag.Bool("check.list", false, "List the names of all tests that will be run")
-	newWorkFlag    = flag.Bool("check.work", false, "Display and do not remove the test working directory")
+	filterFlag  = flag.String("check.f", "", "Regular expression selecting which tests and/or suites to run")
+	verboseFlag = flag.Bool("check.v", false, "Verbose mode")
+	streamFlag  = flag.Bool("check.vv", false, "Super verbose mode (disables output caching)")
+	benchFlag   = flag.Bool("check.b", false, "Run benchmarks")
+	benchTime   = flag.Duration("check.btime", 1*time.Second, "Approximate run time for each benchmark")
+	benchMem    = flag.Bool("check.bmem", false, "Report memory benchmarks")
+	listFlag    = flag.Bool("check.list", false, "List the names of all tests that will be run")
+	workFlag    = flag.Bool("check.work", false, "Display and do not remove the test working directory")
+	threadsNum  = flag.Int("check.threads", 1, "Number of parallel tests")
 )
 
 // TestingT runs all test suites registered with the Suite function,
 // printing results to stdout, and reporting any failures back to
 // the "testing" package.
 func TestingT(testingT *testing.T) {
-	benchTime := *newBenchTime
-	if benchTime == 1*time.Second {
-		benchTime = *oldBenchTime
-	}
 	conf := &RunConf{
-		Filter:        *oldFilterFlag + *newFilterFlag,
-		Verbose:       *oldVerboseFlag || *newVerboseFlag,
-		Stream:        *oldStreamFlag || *newStreamFlag,
-		Benchmark:     *oldBenchFlag || *newBenchFlag,
-		BenchmarkTime: benchTime,
-		BenchmarkMem:  *newBenchMem,
-		KeepWorkDir:   *oldWorkFlag || *newWorkFlag,
+		Filter:        *filterFlag,
+		Verbose:       *verboseFlag,
+		Stream:        *streamFlag && (*threadsNum <= 1),
+		Benchmark:     *benchFlag,
+		BenchmarkTime: *benchTime,
+		BenchmarkMem:  *benchMem,
+		KeepWorkDir:   *workFlag,
 	}
-	if *oldListFlag || *newListFlag {
+	if *listFlag {
 		w := bufio.NewWriter(os.Stdout)
 		for _, name := range ListAll(conf) {
 			fmt.Fprintln(w, name)
@@ -80,8 +69,27 @@ func TestingT(testingT *testing.T) {
 // provided run configuration.
 func RunAll(runConf *RunConf) *Result {
 	result := Result{}
-	for _, suite := range allSuites {
-		result.Add(Run(suite, runConf))
+	queueCh := make(chan interface{})
+	go func() {
+		for _, s := range allSuites {
+			queueCh <- s
+		}
+		close(queueCh)
+	}()
+	j := *threadsNum
+	if j <= 1 {
+		j = 1
+	}
+	resCh := make(chan *Result)
+	for i := 0; i < j; i++ {
+		go func() {
+			for s := range queueCh {
+				resCh <- Run(s, runConf)
+			}
+		}()
+	}
+	for i := 0; i < len(allSuites); i++ {
+		result.Add(<-resCh)
 	}
 	return &result
 }
