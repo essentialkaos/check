@@ -210,6 +210,18 @@ $ go test -check.f "MyTestSuite.Test.*Works"
 
 `gocheck` offers two levels of verbosity through the `-check.v` and `-check.vv` flags. In the first mode, passing tests will also be reported. The second mode will disable log caching entirely and will stream starting and ending suite calls and everything logged in between straight to the output. This is useful to debug hanging tests, for instance.
 
+### Supported flags
+
+- `check.f` - Regular expression selecting which tests and/or suites to run
+- `check.v` - Verbose mode
+- `check.vv` - Super verbose mode (*disables output caching*)
+- `check.b` - Run benchmarks
+- `check.btime` - Approximate run time for each benchmark (*default: 1 second*)
+- `check.bmem` - Report memory benchmarks
+- `check.list` - List the names of all tests that will be run
+- `check.work` - Display and do not remove the test working directory
+- `check.threads` - Number of parallel tests (*default: 1*)
+
 ### License
 
 `gocheck` is made available under the [Simplified BSD License](LICENSE).
