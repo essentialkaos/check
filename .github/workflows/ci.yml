@@ -39,6 +39,11 @@ jobs:
         with:
           path: ${{env.SRC_DIR}}
 
+      - name: Create link to pkg.re
+        run: |
+          mkdir -p src/pkg.re/${{github.repository_owner}}
+          ln -sf src/github.com/${{github.repository}} src/pkg.re/${{github.repository_owner}}/check.v1
+
       - name: Download dependencies
         working-directory: ${{env.SRC_DIR}}
         run: make deps
