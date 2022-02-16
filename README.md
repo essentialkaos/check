@@ -4,7 +4,7 @@
   <a href="https://kaos.sh/g/check.v1"><img src="https://gh.kaos.st/godoc.svg" alt="PkgGoDev" /></a>
   <a href="https://kaos.sh/w/check/ci"><img src="https://kaos.sh/w/check/ci.svg" alt="GitHub Actions CI Status" /></a>
   <a href="https://kaos.sh/w/check/codeql"><img src="https://kaos.sh/w/check/codeql.svg" alt="GitHub Actions CodeQL Status" /></a>
-  <a href="#license"><img src="https://gh.kaos.st/mit.svg"></a>
+  <a href="#license"><img src="https://gh.kaos.st/bsd.svg"></a>
 </p>
 
 The [Go language](http://golang.org) provides an internal testing library, named testing, which is relatively slim due to the fact that the standard library correctness by itself is verified using it. The check package, on the other hand, expects the standard library from Go to be working correctly, and builds on it to offer a richer testing framework for libraries and applications to use.
