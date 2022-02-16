@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"runtime"
 
-	"gopkg.in/check.v1"
+	"pkg.re/essentialkaos/check.v1"
 )
 
 type CheckersS struct{}

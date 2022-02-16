@@ -4,7 +4,8 @@ package check_test
 
 import (
 	"time"
-	. "gopkg.in/check.v1"
+
+	. "pkg.re/essentialkaos/check.v1"
 )
 
 var benchmarkS = Suite(&BenchmarkS{})

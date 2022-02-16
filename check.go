@@ -2,7 +2,7 @@
 //
 // For details about the project, see:
 //
-//     http://labix.org/gocheck
+//     https://kaos.sh/check
 //
 package check
 
@@ -332,7 +332,7 @@ func (c *C) logPanic(skip int, value interface{}) {
 			}
 			name := niceFuncName(pc)
 			path := nicePath(file)
-			if strings.Contains(path, "/gopkg.in/check.v") {
+			if strings.Contains(path, "/pkg.re/essentialkaos/check.v") {
 				continue
 			}
 			if name == "Value.call" && strings.HasSuffix(path, valueGo) {

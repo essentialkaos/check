@@ -4,11 +4,12 @@
 package check_test
 
 import (
-	"gopkg.in/check.v1"
 	"os"
 	"reflect"
 	"runtime"
 	"sync"
+
+	"pkg.re/essentialkaos/check.v1"
 )
 
 var helpersS = check.Suite(&HelpersS{})

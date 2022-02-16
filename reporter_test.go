@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"runtime"
 
-	. "gopkg.in/check.v1"
+	. "pkg.re/essentialkaos/check.v1"
 )
 
 var _ = Suite(&reporterS{})

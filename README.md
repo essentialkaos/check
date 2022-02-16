@@ -192,7 +192,66 @@ func (s *S) TestSimpleChecks(c *C) {
 
 The last statement will display the provided message next to the usual debugging information, but only if the check fails.
 
-Custom verifications may be defined by implementing the [Checker](https://pkg.go.dev/pkg.re/essentialkaos/check.v1#Checker) interface. There are several standard checkers available.
+Custom verifications may be defined by implementing the [Checker](https://pkg.go.dev/pkg.re/essentialkaos/check.v1#Checker) interface.
+
+There are several standard checkers available:
+
+**`DeepEquals`** — Сhecker verifies that the obtained value is deep-equal to the expected value. The check will work correctly even when facing slices, interfaces, and values of different types (_which always fail the test_).
+```golang
+c.Assert(array, DeepEquals, []string{"hi", "there"})
+```
+
+**`Equals`** — Checker verifies that the obtained value is equal to the expected value, according to usual Go semantics for `==`.
+```golang
+c.Assert(value, Equals, 42)
+```
+
+**`ErrorMatches`** — Checker verifies that the error value is non `nil` and matches the regular expression provided.
+```golang
+c.Assert(err, ErrorMatches, "perm.*denied")
+```
+
+**`FitsTypeOf`** — Checker verifies that the obtained value is assignable to a variable with the same type as the provided sample value.
+```golang
+c.Assert(value, FitsTypeOf, int64(0))
+c.Assert(value, FitsTypeOf, os.Error(nil))
+```
+
+**`HasLen`** — Checker verifies that the obtained value has the provided length.
+```golang
+c.Assert(list, HasLen, 5)
+```
+
+**`Implements`** — Checker verifies that the obtained value implements the interface specified via a pointer to an interface variable.
+```golang
+var e os.Error
+c.Assert(err, Implements, &e)
+```
+
+**`IsNil`** — Checker tests whether the obtained value is `nil`.
+```golang
+c.Assert(err, IsNil)
+```
+
+**`Matches`** — Checker verifies that the string provided as the obtained value (_or the string resulting from_ `obtained.String()`) matches the regular expression provided.
+```golang
+c.Assert(err, Matches, "perm.*denied")
+```
+
+**`NotNil`** — Checker verifies that the obtained value is not `nil`. This is an alias for `Not(IsNil)`, made available since it's a fairly common check.
+```golang
+c.Assert(iface, NotNil)
+```
+
+**`PanicMatches`** — Checker verifies that calling the provided zero-argument function will cause a panic with an error value matching the regular expression provided.
+```golang
+c.Assert(func() { f(1, 2) }, PanicMatches, `open.*: no such file or directory`)
+```
+
+**`Panics`** — Checker verifies that calling the provided zero-argument function will cause a panic which is deep-equal to the provided value.
+```golang
+c.Assert(func() { f(1, 2) }, Panics, &SomeErrorType{"BOOM"}).
+```
 
 ### Selecting which tests to run
 
