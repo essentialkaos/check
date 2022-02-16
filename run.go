@@ -43,7 +43,7 @@ var (
 func TestingT(testingT *testing.T) {
 	conf := &RunConf{
 		Filter:        *filterFlag,
-		Verbose:       *verboseFlag,
+		Verbose:       *verboseFlag || testing.Verbose(),
 		Stream:        *streamFlag && (*threadsNum <= 1),
 		Benchmark:     *benchFlag,
 		BenchmarkTime: *benchTime,
