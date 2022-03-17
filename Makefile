@@ -5,7 +5,7 @@
 
 ################################################################################
 
-deps: git-config ## Download dependencies
+deps: ## Download dependencies
 	go get -d -v github.com/kr/pretty
 
 test: ## Run tests
