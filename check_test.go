@@ -12,7 +12,7 @@ import (
 	"testing"
 	"time"
 
-	"pkg.re/essentialkaos/check.v1"
+	"github.com/essentialkaos/check"
 )
 
 // We count the number of suites run at least to get a vague hint that the

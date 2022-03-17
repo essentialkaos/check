@@ -8,7 +8,7 @@ import (
 	"regexp"
 	"sync"
 
-	. "pkg.re/essentialkaos/check.v1"
+	. "github.com/essentialkaos/check"
 )
 
 var runnerS = Suite(&RunS{})

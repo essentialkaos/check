@@ -5,14 +5,11 @@
 
 ################################################################################
 
-git-config: ## Configure git redirects for stable import path services
-	git config --global http.https://pkg.re.followRedirects true
-
 deps: git-config ## Download dependencies
 	go get -d -v github.com/kr/pretty
 
 test: ## Run tests
-	go test -covermode=count pkg.re/essentialkaos/check.v1
+	go test -covermode=count github.com/essentialkaos/check
 
 fmt: ## Format source code with gofmt
 	find . -name "*.go" -exec gofmt -s -w {} \;

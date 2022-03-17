@@ -1,7 +1,7 @@
 <p align="center"><a href="#readme"><img src="https://gh.kaos.st/check.svg"/></a></p>
 
 <p align="center">
-  <a href="https://kaos.sh/g/check.v1"><img src="https://gh.kaos.st/godoc.svg" alt="PkgGoDev" /></a>
+  <a href="https://kaos.sh/g/check"><img src="https://gh.kaos.st/godoc.svg" alt="PkgGoDev" /></a>
   <a href="https://kaos.sh/w/check/ci"><img src="https://kaos.sh/w/check/ci.svg" alt="GitHub Actions CI Status" /></a>
   <a href="https://kaos.sh/w/check/codeql"><img src="https://kaos.sh/w/check/codeql.svg" alt="GitHub Actions CodeQL Status" /></a>
   <a href="#license"><img src="https://gh.kaos.st/bsd.svg"></a>
@@ -37,20 +37,20 @@ The [Go language](http://golang.org) provides an internal testing library, named
 Install gocheck's check package with the following command:
 
 ```bash
-go get -v pkg.re/essentialkaos/check.v1
+go get -v github.com/essentialkaos/check
 ```
 
 To ensure you're using the latest version, run the following instead:
 
 ```bash
-go get -u -v pkg.re/essentialkaos/check.v1
+go get -u -v github.com/essentialkaos/check
 ```
 
 ### API documentation
 
 The API documentation for gocheck's check package is available online at:
 
-https://pkg.re/essentialkaos/check.v1?docs
+https://github.com/essentialkaos/check?docs
 
 ### Basic example
 
@@ -61,7 +61,7 @@ import (
     "testing"
     "io"
 
-    . "pkg.re/essentialkaos/check.v1"
+    . "github.com/essentialkaos/check"
 )
 
 // Hook up gocheck into the "go test" runner.
@@ -133,7 +133,7 @@ To obtain the timing for normal tests, use the `-check.v` flag instead.
 
 ### Skipping tests
 
-Tests may be skipped with the [`Skip`](https://pkg.go.dev/pkg.re/essentialkaos/check.v1#C.Skip) method within `SetUpSuite`, `SetUpTest`, or the test method itself. This allows selectively ignoring tests based on custom factors such as the architecture being run, flags provided to the test, or the availbility of resources (_network, etc_).
+Tests may be skipped with the [`Skip`](https://pkg.go.dev/github.com/essentialkaos/check#C.Skip) method within `SetUpSuite`, `SetUpTest`, or the test method itself. This allows selectively ignoring tests based on custom factors such as the architecture being run, flags provided to the test, or the availbility of resources (_network, etc_).
 
 As an example, the following test suite will skip all the tests within the suite unless the `-live` option is provided to `go test`:
 
@@ -177,7 +177,7 @@ FAIL
 
 ### Assertions and checks
 
-gocheck uses two methods of `*C` to verify expectations on values obtained in test cases: [`Assert`](https://pkg.go.dev/pkg.re/essentialkaos/check.v1#C.Assert) and [`Check`](https://pkg.go.dev/pkg.re/essentialkaos/check.v1#C.Check). Both of these methods accept the same arguments, and the only difference between them is that when `Assert` fails, the test is interrupted immediately, while `Check` will fail the test, return false, and allow it to continue for further checks.
+gocheck uses two methods of `*C` to verify expectations on values obtained in test cases: [`Assert`](https://pkg.go.dev/github.com/essentialkaos/check#C.Assert) and [`Check`](https://pkg.go.dev/github.com/essentialkaos/check#C.Check). Both of these methods accept the same arguments, and the only difference between them is that when `Assert` fails, the test is interrupted immediately, while `Check` will fail the test, return false, and allow it to continue for further checks.
 
 `Assert` and `Check` have the following types:
 
@@ -199,7 +199,7 @@ func (s *S) TestSimpleChecks(c *C) {
 
 The last statement will display the provided message next to the usual debugging information, but only if the check fails.
 
-Custom verifications may be defined by implementing the [Checker](https://pkg.go.dev/pkg.re/essentialkaos/check.v1#Checker) interface.
+Custom verifications may be defined by implementing the [Checker](https://pkg.go.dev/github.com/essentialkaos/check#Checker) interface.
 
 There are several standard checkers available:
 

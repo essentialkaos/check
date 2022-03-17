@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"runtime"
 
-	"pkg.re/essentialkaos/check.v1"
+	"github.com/essentialkaos/check"
 )
 
 type CheckersS struct{}

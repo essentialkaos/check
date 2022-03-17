@@ -332,7 +332,7 @@ func (c *C) logPanic(skip int, value interface{}) {
 			}
 			name := niceFuncName(pc)
 			path := nicePath(file)
-			if strings.Contains(path, "/pkg.re/essentialkaos/check.v") {
+			if strings.Contains(path, "/github.com/essentialkaos/check") {
 				continue
 			}
 			if name == "Value.call" && strings.HasSuffix(path, valueGo) {

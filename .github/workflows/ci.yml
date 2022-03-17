@@ -19,7 +19,7 @@ jobs:
 
     strategy:
       matrix:
-        go: [ '1.16.x', '1.17.x' ]
+        go: [ '1.16.x', '1.17.x', '1.18.x' ]
 
     steps:
       - name: Set up Go
@@ -38,12 +38,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           path: ${{env.SRC_DIR}}
-
-      - name: Create link to pkg.re
-        run: |
-          mkdir -p ${{github.workspace}}/src/pkg.re/${{github.repository_owner}}
-          ln -sf ${{github.workspace}}/src/github.com/${{github.repository}} \
-                 ${{github.workspace}}/src/pkg.re/${{github.repository_owner}}/check.v1
 
       - name: Download dependencies
         working-directory: ${{env.SRC_DIR}}

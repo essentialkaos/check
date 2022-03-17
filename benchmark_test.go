@@ -5,7 +5,7 @@ package check_test
 import (
 	"time"
 
-	. "pkg.re/essentialkaos/check.v1"
+	. "github.com/essentialkaos/check"
 )
 
 var benchmarkS = Suite(&BenchmarkS{})

@@ -9,7 +9,7 @@ import (
 	"runtime"
 	"sync"
 
-	"pkg.re/essentialkaos/check.v1"
+	"github.com/essentialkaos/check"
 )
 
 var helpersS = check.Suite(&HelpersS{})

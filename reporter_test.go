@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"runtime"
 
-	. "pkg.re/essentialkaos/check.v1"
+	. "github.com/essentialkaos/check"
 )
 
 var _ = Suite(&reporterS{})
