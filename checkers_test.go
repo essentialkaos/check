@@ -176,6 +176,24 @@ func (s *CheckersS) TestErrorMatches(c *check.C) {
 	c.Assert(names[0], check.Equals, "error")
 }
 
+func (s *CheckersS) TestErrorMatchesOS(c *check.C) {
+	testInfo(c, check.ErrorMatchesOS, "ErrorMatchesOS", []string{"value", "regex-map"})
+
+	m1 := map[string]string{runtime.GOOS: "some error"}
+	m2 := map[string]string{runtime.GOOS: "so.*or"}
+	m3 := map[string]string{runtime.GOOS: "other error"}
+
+	testCheck(c, check.ErrorMatchesOS, false, "Error value is nil", nil, m1)
+	testCheck(c, check.ErrorMatchesOS, false, "Value is not an error", 1, m1)
+	testCheck(c, check.ErrorMatchesOS, true, "", errors.New("some error"), m1)
+	testCheck(c, check.ErrorMatchesOS, true, "", errors.New("some error"), m2)
+
+	// Verify params mutation
+	params, names := testCheck(c, check.ErrorMatchesOS, false, "", errors.New("some error"), m3)
+	c.Assert(params[0], check.Equals, "some error")
+	c.Assert(names[0], check.Equals, "error")
+}
+
 func (s *CheckersS) TestMatches(c *check.C) {
 	testInfo(c, check.Matches, "Matches", []string{"value", "regex"})
 

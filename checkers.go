@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"reflect"
 	"regexp"
+	"runtime"
 	"strings"
 
 	"github.com/kr/pretty"
@@ -337,6 +338,45 @@ func (checker errorMatchesChecker) Check(params []interface{}, names []string) (
 	params[0] = err.Error()
 	names[0] = "error"
 	return matches(params[0], params[1])
+}
+
+// -----------------------------------------------------------------------
+// ErrorMatchesOS checker.
+
+type errorMatchesOSChecker struct {
+	*CheckerInfo
+}
+
+// The ErrorMatchesOS checker verifies that the error value
+// is non nil and matches OS-specific regular expression.
+//
+// For example:
+//
+//     c.Assert(err, ErrorMatchesOS, map[string]error{"perm.*denied")
+//
+var ErrorMatchesOS Checker = errorMatchesOSChecker{
+	&CheckerInfo{Name: "ErrorMatchesOS", Params: []string{"value", "regex-map"}},
+}
+
+func (checker errorMatchesOSChecker) Check(params []interface{}, names []string) (result bool, errStr string) {
+	if params[0] == nil {
+		return false, "Error value is nil"
+	}
+	err, ok := params[0].(error)
+	if !ok {
+		return false, "Value is not an error"
+	}
+	patterns, ok := params[1].(map[string]string)
+	if !ok {
+		return false, "Value is not a map with regex patterns"
+	}
+	pattern, ok := patterns[runtime.GOOS]
+	if !ok {
+		return false, "There is no regexp for current OS"
+	}
+	params[0] = err.Error()
+	names[0] = "error"
+	return matches(params[0], pattern)
 }
 
 // -----------------------------------------------------------------------

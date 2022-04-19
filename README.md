@@ -218,6 +218,11 @@ c.Assert(value, Equals, 42)
 c.Assert(err, ErrorMatches, "perm.*denied")
 ```
 
+**`ErrorMatchesOS`** — Checker verifies that the error value is non `nil` and matches with OS-specific regular expression.
+```golang
+c.Assert(err, ErrorMatchesOS, map[string]string{"darwin":"perm.*denied", "linux":"non-readable:*"})
+```
+
 **`FitsTypeOf`** — Checker verifies that the obtained value is assignable to a variable with the same type as the provided sample value.
 ```golang
 c.Assert(value, FitsTypeOf, int64(0))
