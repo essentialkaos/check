@@ -283,15 +283,17 @@ $ go test -check.f "MyTestSuite.Test.*Works"
 
 ### Supported flags
 
-- `check.f` - Regular expression selecting which tests and/or suites to run
-- `check.v` - Verbose mode
-- `check.vv` - Super verbose mode (*disables output caching*)
-- `check.b` - Run benchmarks
-- `check.btime` - Approximate run time for each benchmark (*default: 1 second*)
-- `check.bmem` - Report memory benchmarks
-- `check.list` - List the names of all tests that will be run
-- `check.work` - Display and do not remove the test working directory
-- `check.threads` - Number of parallel tests (*default: 1*)
+| Flag            | Description |
+|-----------------|-------------|
+| `check.f`       | Regular expression selecting which tests and/or suites to run |
+| `check.v`       | Verbose mode |
+| `check.vv`      | Super verbose mode (*disables output caching*) |
+| `check.b`       | Run benchmarks |
+| `check.btime`   | Approximate run time for each benchmark (*default: 1 second*) |
+| `check.bmem`    | Report memory benchmarks |
+| `check.list`    | List the names of all tests that will be run |
+| `check.work`    | Display and do not remove the test working directory |
+| `check.threads` | Number of parallel tests (*default: 1*)|
 
 ### License
 
