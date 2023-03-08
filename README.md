@@ -265,6 +265,11 @@ c.Assert(func() { f(1, 2) }, PanicMatches, `open.*: no such file or directory`)
 c.Assert(func() { f(1, 2) }, Panics, &SomeErrorType{"BOOM"}).
 ```
 
+**`NotPanics`** — Checker verifies that calling the provided zero-argument function will not cause any panic.
+```golang
+c.Assert(func() { f(1, 2) }, NotPanics).
+```
+
 ### Selecting which tests to run
 
 `gocheck` can filter tests out based on the test name, the suite name, or both. To run tests selectively, provide the command line option `-check.f` when running go test. Note that this option is specific to gocheck, and won't affect `go test` itself.

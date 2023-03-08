@@ -424,7 +424,41 @@ func matches(value, regex interface{}) (result bool, error string) {
 }
 
 // -----------------------------------------------------------------------
-// Panics checker.
+// NotPanics checker.
+
+type notPanicsChecker struct {
+	*CheckerInfo
+}
+
+// The NotPanics checker verifies that calling the provided zero-argument
+// function will not cause any panic.
+//
+// For example:
+//
+//     c.Assert(func() { f(1, 2) }, NotPanics).
+//
+//
+var NotPanics Checker = &notPanicsChecker{
+	&CheckerInfo{Name: "NotPanics", Params: []string{"function"}},
+}
+
+func (checker *notPanicsChecker) Check(params []interface{}, names []string) (result bool, error string) {
+	f := reflect.ValueOf(params[0])
+	if f.Kind() != reflect.Func || f.Type().NumIn() != 0 {
+		return false, "Function must take zero arguments"
+	}
+	defer func() {
+		// If the function has not panicked, then don't do the check.
+		if error != "" {
+			return
+		}
+		params[0] = recover()
+		names[0] = "panic"
+		result = params[0] == nil
+	}()
+	f.Call(nil)
+	return true, ""
+}
 
 type panicsChecker struct {
 	*CheckerInfo
