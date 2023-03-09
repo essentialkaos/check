@@ -48,9 +48,7 @@ go get -u -v github.com/essentialkaos/check
 
 ### API documentation
 
-The API documentation for gocheck's check package is available online at:
-
-https://github.com/essentialkaos/check?docs
+The API documentation is available online at: https://kaos.sh/g/check
 
 ### Basic example
 
