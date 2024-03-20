@@ -260,12 +260,12 @@ c.Assert(func() { f(1, 2) }, PanicMatches, `open.*: no such file or directory`)
 
 **`Panics`** — Checker verifies that calling the provided zero-argument function will cause a panic which is deep-equal to the provided value.
 ```golang
-c.Assert(func() { f(1, 2) }, Panics, &SomeErrorType{"BOOM"}).
+c.Assert(func() { f(1, 2) }, Panics, &SomeErrorType{"BOOM"})
 ```
 
 **`NotPanics`** — Checker verifies that calling the provided zero-argument function will not cause any panic.
 ```golang
-c.Assert(func() { f(1, 2) }, NotPanics).
+c.Assert(func() { f(1, 2) }, NotPanics)
 ```
 
 ### Selecting which tests to run
