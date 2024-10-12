@@ -43,6 +43,12 @@ jobs:
       - name: Download dependencies
         run: make deps
 
-      - name: Run tests
-        working-directory: ${{env.SRC_DIR}}
+      - name: Run tests (panicnil=0)
+        env:
+          GODEBUG: panicnil=0
+        run: make test
+
+      - name: Run tests (panicnil=1)
+        env:
+          GODEBUG: panicnil=1
         run: make test
