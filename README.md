@@ -1,7 +1,7 @@
 <p align="center"><a href="#readme"><img src=".github/images/card.svg"/></a></p>
 
 <p align="center">
-  <a href="https://kaos.sh/g/check"><img src=".github/images/godoc.svg" alt="PkgGoDev" /></a>
+  <a href="https://kaos.sh/g/check"><img src=".github/images/godoc.svg"/></a>
   <a href="https://kaos.sh/w/check/ci"><img src="https://kaos.sh/w/check/ci.svg" alt="GitHub Actions CI Status" /></a>
   <a href="https://kaos.sh/w/check/codeql"><img src="https://kaos.sh/w/check/codeql.svg" alt="GitHub Actions CodeQL Status" /></a>
   <a href="#license"><img src=".github/images/license.svg"/></a>
